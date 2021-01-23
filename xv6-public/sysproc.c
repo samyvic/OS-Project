@@ -89,3 +89,18 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+//function to set the tickets for the lottery test
+int
+sys_settickets(void)
+{
+  int tickets_number;
+  if(argint(0, &n) < 0)
+  {
+	proc->tickets = 10; //setting the default value
+  }
+  else
+  {
+	proc->tickets = tickets_number;
+  }
+  return 0;
+}
