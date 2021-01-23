@@ -91,16 +91,13 @@ sys_uptime(void)
 }
 //function to set the tickets for the lottery test
 int
-sys_settickets(void)
-{
-  int tickets_number;
-  if(argint(0, &n) < 0)
-  {
-	proc->tickets = 10; //setting the default value
+sys_settickets(void) {
+  int n;
+  if(argint(0, &n) < 0) {
+    return -1;
   }
-  else
-  {
-	proc->tickets = tickets_number;
+  else {
+    settickets(n);
   }
   return 0;
 }
