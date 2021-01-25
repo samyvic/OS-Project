@@ -6,6 +6,7 @@
 #include "memlayout.h"
 #include "mmu.h"
 #include "proc.h"
+#include "pstat.h"
 
 int
 sys_fork(void)
@@ -99,6 +100,28 @@ sys_settickets(void) {
   else {
     settickets(n);
   }
+  return 0;
+}
+int
+sys_getpinfo(void)
+{
+  acquire(&ptable.lock);
+  struct pstat* procstat;
+  struct proc* p;
+  if(argint(0, (int*)(&procstat)) < 0) {
+    return -1;
+  }
+
+  for(p = ptable.proc; p != &(ptable.proc[NPROC]); p++) {
+    int index = p - ptable.proc;
+    if(p->state != UNUSED) {
+	procstat->pid[index] = p->pid;
+        procstat->ticks[index] = p->ticks;
+	procstat->tickets[index] = p->tickets;
+	procstat->inuse[index] = p->inuse;
+    }
+  }
+  release(&ptable.lock);
   return 0;
 }
 int sys_clone(void){

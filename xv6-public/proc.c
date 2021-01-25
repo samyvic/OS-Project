@@ -6,6 +6,7 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
+#include "pstat.h"
 
 struct {
   struct spinlock lock;
@@ -532,7 +533,21 @@ kill(int pid)
   release(&ptable.lock);
   return -1;
 }
-
+int
+getpinfo(struct pstat* ps) {
+  int i = 0;
+  struct proc *p;
+  acquire(&ptable.lock);
+  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
+    ps->pid[i] = p->pid;
+    ps->inuse[i] = p->state != UNUSED;
+    ps->tickets[i] = p->tickets;
+    ps->ticks[i] = p->ticks;
+    i++;
+  }
+  release(&ptable.lock);
+  return 0;
+}
 //PAGEBREAK: 36
 // Print a process listing to console.  For debugging.
 // Runs when user types ^P on console.
