@@ -101,3 +101,29 @@ sys_settickets(void) {
   }
   return 0;
 }
+int sys_clone(void){
+  //Init the variables;
+  void * fcn = 0;
+  void * arg1 = 0;
+  void * arg2 = 0;
+  void * stack = 0;
+
+  //Let's pass the user arguments to XV6 using argint()
+  if(argint(0, (int *) &fcn) < 0){
+      return -1;
+  }
+
+  if(argint(1, (int *) &arg1) < 0){
+    return -1;
+  }
+  if(argint(2, (int *) &arg2) < 0){
+    return -1;
+  }
+
+  if(argint(3, (int *) &stack) < 0){
+    return -1;
+  }
+
+  //Now let's return the function clone();
+  return clone(fcn, arg1, arg2, stack);
+}
