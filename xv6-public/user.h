@@ -28,6 +28,9 @@ int settickets(int);
 int getpinfo(struct pstat *);
 int clone(void(*fcn)(void *, void *), void *arg1, void *arg2, void *stack);
 
+//me
+int mprotect(void *addr, int len);
+int munprotect(void *addr, int len);
 
 // ulib.c
 int stat(const char*, struct stat*);

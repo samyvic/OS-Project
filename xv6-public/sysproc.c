@@ -150,3 +150,32 @@ int sys_clone(void){
   //Now let's return the function clone();
   return clone(fcn, arg1, arg2, stack);
 }
+//me 
+int
+sys_mprotect(void)
+{
+
+  int n1;
+  int n2 = 0;
+
+
+  if(argint(0, &n1)<0 || argint(1, &n2)<0)
+{
+    return -1;
+}
+  return mprotect((void *)n1,n2);
+  
+}
+int
+sys_munprotect(void)
+{
+   int n1;
+  int n2 = 0;
+
+  if(argint(0, &n1)<0 || argint(1, &n2)<0)
+{
+    return -1;
+}
+
+  return munprotect((void *)n1,n2);
+}

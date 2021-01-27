@@ -23,3 +23,5 @@
 #define SYS_settickets  22
 #define SYS_getpinfo 23
 #define SYS_clone  24
+#define SYS_mprotect  25
+#define SYS_munprotect  26
