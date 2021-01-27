@@ -39,10 +39,6 @@ main(int argc, char *argv[])
         printf(1, "This value is unprotected = %d\n",*first); 
 
   }
-  else
-  {
-
-  }
 
  exit();
 }
